@@ -1,0 +1,53 @@
+<section class="section">
+  <div class="container">
+
+    <div class="card">
+      <header class="card-header">
+
+        <p class="card-header-title">
+          Post(s)
+        </p>
+
+        <div>
+          <a href="#" (click)="$event.preventDefault(); clearMessages()">
+            <img src="assets/svg/trash.svg"
+                 class="img-options text-primary" alt="">
+          </a>
+          <a href="#" (click)="$event.preventDefault(); outLogin()">
+            <img src="assets/svg/power.svg"
+                 class="img-options text-primary" alt="">
+          </a>
+        </div>
+
+
+        <!--<button class="card-header-icon" aria-label="more options">
+      <span class="icon">
+        <i class="fas fa-angle-down" aria-hidden="true"></i>
+      </span>
+        </button>-->
+      </header>
+      <section class="card-content"
+               style="display:flex; flex-direction:column-reverse; overflow-y: scroll; max-height: 450px;">
+        <div class="content">
+
+          <ng-container *ngFor="let message of messages()">
+            <app-msg [sms]="message"
+                     [myMessage]="currentUser() == message.from"
+            ></app-msg>
+          </ng-container>
+
+
+        </div>
+      </section>
+      <footer class="card-footer p-2">
+        <input type="text" class="input"
+               placeholder="Enviar mensaje"
+               [ngModel]="inputMessage()"
+               (ngModelChange)="inputMessage.set($event)"
+               (keyup.enter)="sendMessage()"
+        >
+      </footer>
+    </div>
+
+  </div>
+</section>

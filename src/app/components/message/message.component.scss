@@ -1,0 +1,16 @@
+:host {
+  margin: 0 5px;
+}
+.chat-body {
+  padding: 10px 20px;
+}
+
+.other-message {
+  border: 1px solid #37ae59;
+  border-radius: 14px 14px 14px 0;
+}
+
+.my-message {
+  border: 1px solid blue;
+  border-radius: 14px 14px 0 14px;
+}

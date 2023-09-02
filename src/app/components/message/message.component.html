@@ -1,0 +1,22 @@
+<div class="is-flex"
+     [class.is-justify-content-start]="!myMessage"
+     [class.is-justify-content-flex-end]="myMessage">
+
+  <div class="chat-body"
+       [class.other-message]="!myMessage"
+       [class.my-message]="myMessage">
+
+    <div class="header is-flex is-justify-content-between is-align-items-center">
+      <strong class="primary-font">
+        {{sms.fromName}}
+      </strong>
+      <small class="text-muted">
+        {{sms.createdAt | firestoreDate }}
+      </small>
+    </div>
+    <p>
+      {{sms.msg}}
+    </p>
+  </div>
+
+</div>
