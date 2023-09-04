@@ -2,11 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {User} from "../interfaces/user.interface";
 import {Message} from "../interfaces/message.interface";
-import {
-  collection, collectionData, Firestore, orderBy,
-  serverTimestamp,
-  query, addDoc,
-} from "@angular/fire/firestore";
+import {addDoc, collection, collectionData, Firestore, orderBy, query, serverTimestamp,} from "@angular/fire/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +26,19 @@ export class ChatService {
     return localStorage.getItem('user') ?? '';
   }
 
+  async addMessageChat(msg: string) {
+    const messageBody = {
+      msg: msg,
+      from: this.getUserUidCurrent(),
+      createdAt: serverTimestamp()//Date.now()
+    }
+
+    const toRef = collection(this.firestore, `messages`)
+
+    await addDoc(toRef, messageBody);
+
+  }
+
   async addChatMessageFromTo(msg: string, to: string) {
     console.log("Log Message To: ", to)
     const messageBody = {
@@ -37,8 +46,8 @@ export class ChatService {
       from: this.getUserUidCurrent(),
       createdAt: serverTimestamp()//Date.now()
     }
-    const toRef = collection(this.firestore, `message/${to}/${this.getUserUidCurrent()}`)
-    const fromRef = collection(this.firestore, `message/${this.getUserUidCurrent()}/${to}`)
+    const toRef = collection(this.firestore, `messages/${to}/${this.getUserUidCurrent()}`)
+    const fromRef = collection(this.firestore, `messages/${this.getUserUidCurrent()}/${to}`)
 
     await addDoc(toRef, messageBody);
     await addDoc(fromRef, messageBody);
